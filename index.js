@@ -24,18 +24,25 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get('/api/', (request, response) => {
+  //const reqDate = request.params.date
+  response.json({unix: Number(new Date().getTime()), utc: new Date()})
+
+}) 
+
 app.get('/api/:date', (request, response) => {
   const reqDate = request.params.date
  if (new Date(Number(reqDate)).toString() !== 'Invalid Date'){
 
-   response.json({unix: reqDate, utc: new Date(Number(reqDate)).toString()})
+   response.json({unix: Number(reqDate), utc: new Date(Number(reqDate)).toString()})
   
   } else if (new Date(reqDate).toString() !== 'Invalid Date') {
-   response.json({unix: new Date(reqDate).getTime(), utc: new Date(reqDate)})
+   response.json({unix: Number(new Date(reqDate).getTime()), utc: new Date(reqDate)})
+  }
+  else {
 
-  } else {
-      response.json({error: 'Invalid Date'})
-    }
+    response.json({error: 'Invalid Date'})
+  }
 })
 
 
