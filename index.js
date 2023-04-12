@@ -26,7 +26,7 @@ app.get("/api/hello", function (req, res) {
 
 app.get('/api/', (request, response) => {
   //const reqDate = request.params.date
-  response.json({unix: Number(new Date().getTime()), utc: new Date()})
+  response.json({unix: Number(new Date().getTime()), utc: new Date().toUTCString()})
 
 }) 
 
@@ -34,10 +34,10 @@ app.get('/api/:date', (request, response) => {
   const reqDate = request.params.date
  if (new Date(Number(reqDate)).toString() !== 'Invalid Date'){
 
-   response.json({unix: Number(reqDate), utc: new Date(Number(reqDate)).toString()})
+   response.json({unix: Number(reqDate), utc: new Date(Number(reqDate)).toUTCString()})
   
   } else if (new Date(reqDate).toString() !== 'Invalid Date') {
-   response.json({unix: Number(new Date(reqDate).getTime()), utc: new Date(reqDate)})
+   response.json({unix: Number(new Date(reqDate).getTime()), utc: new Date(reqDate).toUTCString()})
   }
   else {
 
